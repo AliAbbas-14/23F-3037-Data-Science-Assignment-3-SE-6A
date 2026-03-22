@@ -1,0 +1,59 @@
+========================================================================
+1. MEDIUM ARTICLE DRAFT (Copy and Paste to medium.com)
+========================================================================
+
+Title: Building a Hybrid Semantic Retrieval & Intelligence System (HSRIS) from Scratch using Base PyTorch
+
+Introduction
+In today’s fast-paced digital world, quickly and accurately understanding customer support tickets is crucial. For my Data Science Assignment (SE-6A), I took on the challenge of building a Hybrid Semantic Retrieval System. This system blends both classical statistical matching (TF-IDF) and modern neural embeddings (GloVe) to find similar past ticket resolutions. And the constraint? Build it entirely from scratch using Base PyTorch, without high-level NLP libraries like Scikit-Learn!
+
+Part 1: The Categorical Foundations
+The very first step was to handle categorical metadata. Without using `sklearn.preprocessing`, I manually implemented a `LabelEncoder` using Python dictionaries to enforce strict ordinal logic for Priority categories (Low to Critical). Similarly, a `OneHotEncoder` was programmed using zero-tensors `torch.zeros()` and matrix indexing to bypass unseen errors seamlessly.
+
+Part 2: Keyword Frequency Matrix with TF-IDF
+To capture literal keyword overlaps (e.g., matching the exact word "refund"), I built a RegEx-based custom Tokenizer along with an N-gram generator to distinguish context (like "not working"). To optimize RAM across our massive dataset, the TF-IDF formula was implemented using math logarithms and stored directly into PyTorch sparse matrices (`torch.sparse_coo_tensor`). 
+
+Part 3: Solving Semantic Dilution with GloVe
+While TF-IDF is great for exact word matches, it fails when dealing with intent. If a user says "money dropping," the system should link it to "billing." I solved this by leveraging 300-Dimensional GloVe vectors loaded explicitly into `torch.nn.Embedding`. Furthermore, instead of simple averaging, I employed a TF-IDF weighted pooling strategy inside multi-dimensional tensors to make sure that crucial rare keywords (like "kernel") didn't get drowned out by common stopwords.
+
+Parallel Execution on Kaggle Dual T4 GPUs
+Handling 8,400+ vectors is computationally expensive. Therefore, I packaged my `SimilaritySearcher` object into PyTorch's native `nn.DataParallel()` pipeline. This successfully distributed the workload seamlessly across Kaggle’s Dual Tesla T4 GPUs, dropping execution latency significantly to a fraction of a millisecond.
+
+Final Results & Conclusion
+The qualitative tests proved that setting the focus factor ($\alpha$) heavily toward GloVe semantics effortlessly bypassed literal bounds, accurately routing ambiguous queries to the correct domain! I then created an interactive Streamlit app to put a face to the mathematical algorithms, allowing users to tweak the Hybrid ratio dynamically. 
+
+Feel free to check out my GitHub repository to dive deep into the source code!
+
+*(Add your GitHub Link here)*
+
+========================================================================
+2. LINKEDIN POST DRAFT (Copy and Paste to linkedin.com)
+========================================================================
+
+Excited to share my latest Machine Learning project! 🚀 
+
+I just successfully built a custom Hybrid Semantic Retrieval & Intelligence System (HSRIS) for analyzing unstructured Customer Support Tickets—and I programmed everything from completely scratch using Base PyTorch! 💻🔥
+
+To meet the strict "No Scikit-Learn" condition for this assignment, I designed custom TF-IDF RegEx tokenizers mapped via PyTorch Sparse Tensors to prevent RAM overhead. I then bridged this with 300D GloVe Neural Embeddings, applying advanced TF-IDF weighted pooling to avoid Semantic Dilution! 💪
+
+Key Technical Highlights:
+✅ Custom Object-Oriented Categorical Encoders (Ordinal & One-Hot) entirely in Python
+✅ Real-time Dual GPU hardware scaling mapping vectors dynamically across Kaggle's Tesla T4 cards using `nn.DataParallel()`.
+✅ Interactive Frontend App deployed on Streamlit
+
+It's been a tough but greatly rewarding experience proving both the statistical (Keyword) and conceptual (Intent) logic through multi-stage NLP! You can read the detailed architectural breakdown in my Medium article here: *(Add your Medium Link here)*
+
+Check out my GitHub for the pure source Code: *(Add your GitHub link here)*
+And feel free to play with the Live Application here: *(Add your Streamlit App Link here)*
+
+#DataScience #MachineLearning #PyTorch #NLP #Python #Kaggle #ArtificialIntelligence #SoftwareEngineering
+
+========================================================================
+3. STREAMLIT & GITHUB CHECKLIST
+========================================================================
+Steps to get the last two links for your Word Doc:
+1. Open GitHub.com, make a new repository (e.g. "HSRIS-NLP-Pipeline").
+2. Upload the `DS_ASS01_SE6A_23F3037.ipynb` file, the `app.py` file, and the `customer_support_tickets.csv` file into that repository.
+3. Open Streamlit Community Cloud (share.streamlit.io).
+4. Click 'Create App' -> 'Deploy from GitHub' and select your repository and `app.py` file! 
+5. Streamlit will generate a live web link for you instantly!
